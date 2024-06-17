@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Управляющая Компания - Главная</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<header>
+    <h1>Добро пожаловать в Управляющую Компанию</h1>
+    <nav>
+        <a th:href="@{/login}">Вход</a> |
+        <a th:href="@{/register}">Регистрация</a>
+    </nav>
+</header>
+<main>
+    <section>
+        <h3>Контакты:</h3>
+        <p><strong>Адрес:</strong> ул. Примерная, д. 10, г. Примерск</p>
+        <p><strong>Телефон:</strong> +7 (123) 456-78-90</p>
+        <p><strong>Email:</strong> info@managingcompany.example.com</p>
+    </section>
+    <section>
+        <h3>График работы:</h3>
+        <p>Понедельник - Пятница: 9:00 - 18:00</p>
+        <p>Суббота: 10:00 - 14:00</p>
+        <p>Воскресенье: выходной</p>
+    </section>
+<!--    <section>-->
+<!--        <h2>Контакты экстренных служб</h2>-->
+<!--        <ul>-->
+<!--            <li>Служба спасения: <strong>112</strong></li>-->
+<!--            <li>Пожарная служба: <strong>101</strong></li>-->
+<!--            <li>Полиция: <strong>102</strong></li>-->
+<!--            <li>Скорая помощь: <strong>103</strong></li>-->
+<!--            <li>Газовая служба: <strong>104</strong></li>-->
+<!--        </ul>-->
+<!--    </section>-->
+    <section>
+        <h2>О нас</h2>
+        <p>Управляющая компания предоставляет широкий спектр услуг по обслуживанию и управлению жилыми и нежилыми помещениями. Мы стремимся обеспечить высокий уровень комфорта и безопасности для всех наших клиентов.</p>
+    </section>
+    <section>
+        <h2>Новости</h2>
+        <article>
+            <h3>Новость 1</h3>
+            <p>Текст новости 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel venenatis felis, at aliquam turpis.</p>
+            <small>20 мая 2024</small>
+        </article>
+        <article>
+            <h3>Новость 2</h3>
+            <p>Текст новости 2. Quisque ultricies dui sit amet libero facilisis, eu venenatis metus gravida. Aliquam erat volutpat.</p>
+            <small>18 мая 2024</small>
+        </article>
+    </section>
+
+</main>
+<footer>
+    <section>
+        <p>&copy; 2024 Управляющая Компания</p>
+    </section>
+</footer>
+</body>
+</html>

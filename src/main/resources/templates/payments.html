@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Платежи</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <h1>Платежи</h1>
+    <nav>
+        <a th:href="@{/user-dashboard}">Назад в кабинет</a>
+    </nav>
+</header>
+<main>
+    <h2>Ваши платежи</h2>
+    <ul>
+        <li th:each="payment : ${payments}">
+            <strong>Сумма: <span th:text="${payment.amount}">Сумма</span></strong>
+            <p>Дата: <span th:text="${payment.date}">Дата</span></p>
+            <p>Услуга: <span th:text="${payment.service.name}">Услуга</span></p>
+        </li>
+    </ul>
+    <h3>Создать новый платеж</h3>
+    <form th:action="@{/payments}" method="post">
+        <label for="amount">Сумма:</label>
+        <input type="number" id="amount" name="amount" required>
+        <label for="service">Услуга:</label>
+        <select id="service" name="serviceId" required>
+            <option th:each="service : ${services}" th:value="${service.id}" th:text="${service.name}">Услуга</option>
+        </select>
+        <button type="submit">Оплатить</button>
+    </form>
+</main>
+<footer>
+    <p>&copy; 2024 Управляющая Компания</p>
+</footer>
+</body>
+</html>

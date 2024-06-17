@@ -1,2 +1,4 @@
-package com.example.utilityhub.controllers;public class UtilityServiceController {
+package com.example.utilityhub.controllers;
+
+public class UtilityServiceController {
 }

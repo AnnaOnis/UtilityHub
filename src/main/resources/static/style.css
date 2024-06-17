@@ -1,0 +1,192 @@
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: darkolivegreen;
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    color: darkgoldenrod;
+    margin: 0;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 700px;
+}
+
+main section {
+    background: #ffffff;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(50% - 40px); /* Выделение места для секции с учетом отступов */
+    box-sizing: border-box; /* Учитываем отступы и границы в ширине */
+    min-width: 250px; /* Минимальная ширина секции */
+}
+
+.auth{
+    align-self: center;
+}
+
+footer {
+    background-color: darkolivegreen;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+footer section{
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(50% - 40px); /* Выделение места для секции с учетом отступов */
+    box-sizing: border-box; /* Учитываем отступы и границы в ширине */
+    min-width: 250px; /* Минимальная ширина секции */
+    font-size: 15px;
+}
+
+/* Стили заголовков */
+h1, h2, h3 {
+    color: #333333;
+}
+
+/* Стили форм */
+form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 500px;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form input[type="number"],
+form textarea,
+form select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+ form span{
+     color: red;
+ }
+
+form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #35424a;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background: #3c5d63;
+}
+
+/* Стили списков */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    background: #ffffff;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ul li strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+ul li p,
+ul li small {
+    margin: 0;
+}
+
+ul li small {
+    color: #999999;
+}
+
+article {
+    margin-bottom: 15px;
+}
+
+article h3 {
+    margin-top: 0;
+}
+
+article p {
+    margin: 10px 0;
+}
+
+article small {
+    color: #999999;
+}
+
+.error_message{
+    background: #f94a3b;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.success_message{
+    background: #21f943;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}

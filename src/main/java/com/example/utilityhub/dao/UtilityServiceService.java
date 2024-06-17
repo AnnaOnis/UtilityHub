@@ -1,6 +1,6 @@
 package com.example.utilityhub.dao;
 
-import com.example.utilityhub.models.User;
+import com.example.utilityhub.models.UtilityService;
 
-public interface UserService extends DAO<User>{
+public interface UtilityServiceService extends DAO<UtilityService>{
 }

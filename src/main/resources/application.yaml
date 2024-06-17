@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    username: postgres
+    password: MyPasw1184
+    url: jdbc:postgresql://localhost:5432/utilityHub_bd
+server:
+  port: 8000
+
+debug: true

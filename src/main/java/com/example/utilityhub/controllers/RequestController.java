@@ -1,2 +1,4 @@
-package com.example.utilityhub.controllers;public class RequestController {
+package com.example.utilityhub.controllers;
+
+public class RequestController {
 }

@@ -1,6 +1,9 @@
 package com.example.utilityhub.dao;
 
-import com.example.utilityhub.models.User;
+import com.example.utilityhub.models.Notification;
 
-public interface UserService extends DAO<User>{
+import java.util.List;
+
+public interface NotificationService extends DAO<Notification>{
+    List<Notification> getNotificationsByUserId(Long userId);
 }

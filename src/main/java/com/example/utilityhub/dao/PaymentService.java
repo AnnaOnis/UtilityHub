@@ -1,6 +1,9 @@
 package com.example.utilityhub.dao;
 
-import com.example.utilityhub.models.Notification;
+import com.example.utilityhub.models.Payment;
 
-public interface NotificationService extends DAO<Notification>{
+import java.util.List;
+
+public interface PaymentService extends DAO<Payment>{
+    List<Payment> getPaymentsByUserId(Long userId);
 }

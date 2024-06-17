@@ -1,2 +1,4 @@
-package com.example.utilityhub.controllers;public class PaymentController {
+package com.example.utilityhub.controllers;
+
+public class PaymentController {
 }
