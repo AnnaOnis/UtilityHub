@@ -1,19 +1,19 @@
 package com.example.utilityhub.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.utilityhub.models.enums.RequestStatus;
+import com.example.utilityhub.models.enums.RequestType;
+import lombok.*;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "requests")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class Request {
 
     @Id
@@ -26,6 +26,9 @@ public class Request {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RequestType type;
+
+    @Column(nullable = false)
+    private String title;
 
     @Column(nullable = false)
     private String description;
@@ -41,16 +44,16 @@ public class Request {
     protected void onCreate() {
         createdAt = new Timestamp(System.currentTimeMillis());
     }
+
+    public Request(String title, String description, String type){
+        this.title = title;
+        this.description = description;
+        this.status = RequestStatus.PENDING;
+        try {
+            this.type = RequestType.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            this.type = RequestType.OTHER;
+        }
+    }
 }
 
-enum RequestType {
-    MAINTENANCE,
-    COMPLAINT,
-    OTHER
-}
-
-enum RequestStatus {
-    PENDING,
-    IN_PROGRESS,
-    COMPLETED
-}

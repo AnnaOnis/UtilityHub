@@ -6,13 +6,9 @@
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-<header>
-    <h1>Добро пожаловать в Управляющую Компанию</h1>
-    <nav>
-        <a th:href="@{/login}">Вход</a> |
-        <a th:href="@{/register}">Регистрация</a>
-    </nav>
-</header>
+<wrapper>
+    <th:block th:insert="~{/layouts/header.html::headerLayout()}"></th:block>
+    <th:block th:insert="~{/layouts/nav.html::navLayout(${userId}, ${log}, ${reg}, ${home}, ${lk}, ${req})}"></th:block>
 <main>
     <section>
         <h3>Контакты:</h3>
@@ -55,10 +51,9 @@
     </section>
 
 </main>
-<footer>
-    <section>
-        <p>&copy; 2024 Управляющая Компания</p>
-    </section>
-</footer>
+
+    <th:block th:insert="~{/layouts/footer.html::footerLayout()}"></th:block>
+
+</wrapper>
 </body>
 </html>

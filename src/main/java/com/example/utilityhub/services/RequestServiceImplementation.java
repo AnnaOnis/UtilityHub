@@ -5,6 +5,8 @@ import com.example.utilityhub.models.Request;
 import com.example.utilityhub.repositories.RequestRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +31,11 @@ public class RequestServiceImplementation implements RequestService {
     @Override
     public List<Request> getRequestsByUserId(Long userId) {
         return requestRepository.findByUserId(userId);
+    }
+
+    @Override
+    public Page<Request> getAllRequestsPageable(Pageable pageable) {
+        return requestRepository.findAll(pageable);
     }
 
     @Override

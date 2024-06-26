@@ -5,6 +5,8 @@ import com.example.utilityhub.models.Payment;
 import com.example.utilityhub.repositories.PaymentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +36,11 @@ public class PaymentServiceImplementation implements PaymentService {
     @Override
     public List<Payment> getPaymentsByUserId(Long userId) {
         return paymentRepository.findByUserId(userId);
+    }
+
+    @Override
+    public Page<Payment> getAllPaymentsPageable(Pageable pageable) {
+        return paymentRepository.findAll(pageable);
     }
 
     @Override

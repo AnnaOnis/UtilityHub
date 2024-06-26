@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Запросы</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<th:block th:insert="~{/layouts/header.html::headerLayout()}"></th:block>
+<nav>
+    <ul th:class="nav-ul">
+        <li th:class="nav-li" style="float:right">
+            <a th:class="nav-a"  th:href="@{/user/dashboard}">Личный кабинет</a>
+        </li>
+    </ul>
+</nav>
+<main>
+    <section>
+    <h2>Ваши запросы</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Заголовок</th>
+                <th>Дата</th>
+                <th>Описание</th>
+                <th>Тип</th>
+                <th>Статус</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="request : ${requests}">
+                <td th:text="${request.getTitle()}"></td>
+                <td th:text="${request.getCreatedAt()}"></td>
+                <td th:text="${request.getDescription()}"></td>
+                <td th:text="${request.getType()}"></td>
+                <td th:text="${request.getStatus()}"
+                    th:classappend="${(request.getStatus().toString() == 'PENDING') ?
+                'status-red' : (request.getStatus().toString() == 'COMPLETED') ?
+                'status-green' : 'status-yellow'}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section>
+    <h3>Создать новый запрос</h3>
+    <form th:action="@{/requests/add}" method="post">
+        <label for="title">Заголовок:</label>
+        <input type="text" id="title" name="title" required>
+        <label for="description">Описание:</label>
+        <textarea id="description" name="description" required></textarea>
+        <select id="type" name="type" required>
+            <option th:value="${requestTypes.get(0)}" th:text="Обслуживание"></option>
+            <option th:value="${requestTypes.get(1)}" th:text="Жалоба"></option>
+            <option th:value="${requestTypes.get(2)}" th:text="Другой"></option>
+        </select>
+        <input type="hidden" id="userId" name="userId" th:value="${userId}" required>
+        <button type="submit">Отправить</button>
+    </form>
+    </section>
+</main>
+<th:block th:insert="~{/layouts/footer.html::footerLayout()}"></th:block>
+</body>
+</html>

@@ -1,0 +1,117 @@
+
+.outer-div,
+.inner-div {
+    height: 650px;
+    width: 600px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.outer-div {
+    perspective: 1300px;
+    perspective-origin: 60% calc(50% - 10em);
+}
+
+.inner-div {
+    margin: 0 auto;
+    border-radius: 5px;
+    font-weight: 400;
+    color: #071011;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.front {
+    position: relative;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.front__bkg-photo {
+    position: relative;
+    height: 250px;
+    width: 600px;
+    background: url("img/fon.jpg") no-repeat;
+
+    background-size: cover;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.front__face-photo {
+    position: relative;
+    top: -60px;
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    background: url("img/foto.jpg")
+    no-repeat;
+    background-size: contain;
+}
+
+.front__text {
+    position: relative;
+    top: -55px;
+    margin: 0 auto;
+    font-family: "Montserrat";
+    font-size: 18px;
+}
+
+.front__text-username {
+    font-weight: 700;
+    font-family: "Oswald";
+    text-transform: uppercase;
+    font-size: 25px;
+}
+
+front__text-fullname{
+    font-weight: 500;
+    font-family: "Oswald";
+    font-size: 20px;
+}
+
+.front__text-info {
+    position: relative;
+    top: -5px;
+
+    color: #000;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    font-weight: 400;
+    font-family: "Montserrat", sans-serif;
+}
+
+.front-icons {
+    position: relative;
+    top: 0;
+    font-size: 14px;
+    margin-right: 6px;
+    color: gray;
+}
+
+.front__text-button {
+    margin-bottom: 30px;
+    position: relative;
+    top: 10px;
+    font-size: 15px;
+
+    letter-spacing: 0.4px;
+
+    border: 2px solid #1085e1;
+    padding: 8px 15px;
+    border-radius: 30px;
+
+    background: #1085e1;
+    color: #fff;
+}
+
+.front__text-button:hover{
+    background: #0865a9;
+}

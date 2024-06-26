@@ -1,22 +1,20 @@
 package com.example.utilityhub.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.utilityhub.models.enums.Role;
+import lombok.*;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class User {
 
     @Id
@@ -33,6 +31,8 @@ public class User {
     private String email;
 
     private String fullName;
+
+    private String address;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -67,10 +67,14 @@ public class User {
         this.notifications = new HashSet<>();
         this.payments = new HashSet<>();
     }
-}
 
-enum Role {
-    USER,
-    ADMIN
+    public void addNotification(String message){
+        Notification notification = new Notification();
+        notification.setUser(this);
+        notification.setMessage(message);
+        notification.setIsRead(false);
+
+        this.getNotifications().add(notification);
+    }
 }
 

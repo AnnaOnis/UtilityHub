@@ -5,6 +5,8 @@ import com.example.utilityhub.models.Notification;
 import com.example.utilityhub.repositories.NotificationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +36,11 @@ public class NotificationServiceImplementation implements NotificationService {
     @Override
     public List<Notification> getNotificationsByUserId(Long userId) {
         return notificationRepository.findByUserId(userId);
+    }
+
+    @Override
+    public Page<Notification> getAllNotificationsPageable(Pageable pageable) {
+        return notificationRepository.findAll(pageable);
     }
 
     @Override

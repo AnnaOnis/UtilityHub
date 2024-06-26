@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Управление уведомлениями</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<th:block th:insert="~{/layouts/header.html::headerLayout()}"></th:block>
+<nav>
+  <ul th:class="nav-ul">
+    <li th:class="nav-li" style="float:right">
+      <a th:class="nav-a" th:href="@{/admin/dashboard}">Назад</a>
+    </li>
+  </ul>
+</nav>
+<main>
+  <div>
+    <h1>Уведомления</h1>
+  </div>
+
+    <table>
+      <thead>
+      <tr>
+        <th><a th:href="@{/admin/notifications(sortField='id', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">ID</a></th>
+        <th><a th:href="@{/admin/notifications(sortField='user', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">Пользователь</a></th>
+        <th>Сообщение</th>
+        <th><a th:href="@{/admin/notifications(sortField='createdAt', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">Дата создания</a></th>
+        <th><a th:href="@{/admin/notifications(sortField='isRead', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">Статус</a></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="notification : ${notifications}">
+        <td th:text="${notification.getId()}"></td>
+        <td th:text="${notification.getUser() != null ? notification.getUser().getUsername() : 'Все пользователи'}"></td>
+        <td th:text="${notification.getMessage()}"></td>
+        <td th:text="${notification.getCreatedAt()}"></td>
+        <td th:style="${notification.getIsRead() ? 'background-color: #d7fcd7;' : 'background-color: #fcd7d7;'}"
+            th:text="${notification.getIsRead() ? 'Прочитано' : 'Не прочитано'}"></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <span th:if="${page > 0}">
+        <a th:href="@{/admin/notifications(page=${page - 1}, size=${size})}">Предыдущая</a>
+      </span>
+      <span th:if="${page < totalPages - 1}">
+        <a th:href="@{/admin/notifications(page=${page + 1}, size=${size})}">Следующая</a>
+      </span>
+    </div>
+
+</main>
+<th:block th:insert="~{/layouts/footer.html::footerLayout()}"></th:block>
+</body>
+</html>

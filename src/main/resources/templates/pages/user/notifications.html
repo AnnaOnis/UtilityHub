@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Уведомления</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<th:block th:insert="~{/layouts/header.html::headerLayout()}"></th:block>
+<nav>
+    <ul th:class="nav-ul">
+        <li th:class="nav-li" style="float:right">
+            <a th:class="nav-a"  th:href="@{/user/dashboard}">Личный кабинет</a>
+        </li>
+    </ul>
+</nav>
+<main>
+    <section>
+    <h2>Ваши уведомления</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Сообщение</th>
+            <th>Статус</th>
+            <th th:width="70px"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="notification : ${notifications}">
+            <td th:text="${notification.getCreatedAt()}"></td>
+            <td th:text="${notification.getMessage()}"></td>
+            <td th:style="${notification.getIsRead() ? 'background-color: #d7fcd7;' : 'background-color: #fcd7d7;'}"
+                th:text="${notification.getIsRead() ? 'Прочитано' : 'Новое'}"></td>
+            <td>
+                <a th:class="td-a" th:if="${notification.getIsRead() == false}"
+                   th:href="@{/notifications/read/{id}(id=${notification.getId()})}"
+                   th:text="'Прочитать'"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </section>
+</main>
+<th:block th:insert="~{/layouts/footer.html::footerLayout()}"></th:block>
+</body>
+</html>

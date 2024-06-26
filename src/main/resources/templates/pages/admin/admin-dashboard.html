@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Администрирование</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<th:block th:insert="~{/layouts/header.html::headerLayout()}"></th:block>
+<nav>
+    <ul th:class="nav-ul">
+        <li th:class="nav-li" style="float:right">
+            <a th:class="nav-a" th:href="@{/logout}">Выход</a>
+        </li>
+    </ul>
+</nav>
+<div th:class="page-title"><h1>Администрирование</h1></div>
+<main>
+
+    <section>
+        <h2>Ссылки на страницы</h2>
+        <ul>
+            <li><a th:href="@{/admin/users}">Пользователи</a></li>
+            <li><a th:href="@{/admin/requests}">Запросы</a></li>
+            <li><a th:href="@{/admin/payments}">Платежи</a></li>
+            <li><a th:href="@{/admin/notifications}">Уведомления</a></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Отправить уведомление</h2>
+        <form th:action="@{/admin/send-notification}" method="post">
+            <label for="userId">Пользователь (ID):</label>
+            <input type="number" id="userId" name="userId">
+            <p>Оставьте поле пустым, чтобы отправить уведомление всем пользователям</p>
+            <label for="message">Сообщение:</label>
+            <textarea id="message" name="message"></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+    </section>
+</main>
+<th:block th:insert="~{/layouts/footer.html::footerLayout()}"></th:block>
+</body>
+</html>

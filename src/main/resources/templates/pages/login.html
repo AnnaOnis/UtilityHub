@@ -6,15 +6,11 @@
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-<header>
-    <h1>Вход в личный кабинет</h1>
-    <nav>
-        <a th:href="@{/register}">Зарегистрироваться</a> |
-        <a th:href="@{/}">Главная</a>
-    </nav>
-</header>
+<th:block th:insert="~{/layouts/header.html::headerLayout()}"></th:block>
+<th:block th:insert="~{/layouts/nav.html::navLayout(${userId}, ${log}, ${reg}, ${home}, ${lk}, ${req})}"></th:block>
 <main>
     <div th:class="auth">
+
         <form th:action="@{/login}" method="post">
             <label for="username">Имя пользователя:</label>
             <input type="text" id="username" name="username" required>
@@ -24,14 +20,13 @@
         </form>
 
         <div th:class="error_message" th:if="${param.error}">
-            <h2>Неверное имя пользователя или пароль!</h2>
+            <div th:class="message">
+                <span class="icon" style="margin-right: 10px;">&#9888;</span>
+                Неверное имя пользователя или пароль!
+            </div>
         </div>
     </div>
 </main>
-<footer>
-    <section>
-        <p>&copy; 2024 Управляющая Компания</p>
-    </section>
-</footer>
+<th:block th:insert="~{/layouts/footer.html::footerLayout()}"></th:block>
 </body>
 </html>

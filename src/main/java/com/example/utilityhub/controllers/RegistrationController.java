@@ -19,27 +19,30 @@ public class RegistrationController {
     @GetMapping
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new UserRegisterDTO());
-        return "register";
+        model.addAttribute("reg", true);
+        return "pages/register";
     }
 
     @PostMapping
     public String registerUser(@ModelAttribute("user") UserRegisterDTO userDTO, Model model) {
+        model.addAttribute("reg", true);
+
         if (!userDTO.getPassword().equals(userDTO.getPassRepeat())) {
             model.addAttribute("error", true);
             model.addAttribute("type", "password");
-            return "register";
+            return "pages/register";
         }
 
         if (userService.findByUsername(userDTO.getUsername()).isPresent()) {
             model.addAttribute("error", true);
             model.addAttribute("type", "username");
-            return "register";
+            return "pages/register";
         }
 
         if (userService.findByEmail(userDTO.getEmail()).isPresent()) {
             model.addAttribute("error", true);
             model.addAttribute("type", "email");
-            return "register";
+            return "pages/register";
         }
 
         User newUser = new User(userDTO.getUsername(), userDTO.getPassword(), userDTO.getEmail());
@@ -48,10 +51,10 @@ public class RegistrationController {
         if(registeredUser == null){
             model.addAttribute("error", true);
             model.addAttribute("type", "unknown");
-            return "register";
+            return "pages/register";
         }
 
         model.addAttribute("error", false);
-        return "register";
+        return "pages/register";
     }
 }

@@ -1,19 +1,17 @@
 package com.example.utilityhub.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "notifications")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class Notification {
 
     @Id

@@ -1,13 +1,15 @@
 package com.example.utilityhub.models;
 
+import com.example.utilityhub.models.enums.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
-import java.sql.Date;
+
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "payments")
@@ -32,7 +34,7 @@ public class Payment {
     private Double amount;
 
     @Column(nullable = false)
-    private Date paymentDate;
+    private LocalDate paymentDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -41,15 +43,17 @@ public class Payment {
     @Column(nullable = false, updatable = false)
     private Timestamp createdAt;
 
+    public Payment(LocalDate paymentDate, Double amount, UtilityService utilityService, User user){
+        this.paymentDate = paymentDate;
+        this.amount = amount;
+        this.service = utilityService;
+        this.user = user;
+        this.status = PaymentStatus.PENDING;
+    }
+
     @PrePersist
     protected void onCreate() {
         createdAt = new Timestamp(System.currentTimeMillis());
     }
-}
-
-enum PaymentStatus {
-    PENDING,
-    COMPLETED,
-    FAILED
 }
 

@@ -5,6 +5,8 @@ import com.example.utilityhub.models.User;
 import com.example.utilityhub.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,12 @@ public class UserServiceImplementation implements UserService {
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    @Override
+    public Page<User> getAllUsersPageable(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
 
     @Override
     public List<User> getAll() {

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Платежи</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<th:block th:insert="~{/layouts/header.html::headerLayout()}"></th:block>
+<nav>
+    <ul th:class="nav-ul">
+        <li th:class="nav-li" style="float:right">
+            <a th:class="nav-a" th:href="@{/admin/dashboard}">Назад</a>
+        </li>
+    </ul>
+</nav>
+<main>
+    <div>
+        <h1>Платежи</h1>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th><a th:href="@{/admin/payments(sortField='id', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">ID</a></th>
+            <th><a th:href="@{/admin/payments(sortField='user', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">Пользователь</a></th>
+            <th>Сумма</th>
+            <th><a th:href="@{/admin/payments(sortField='paymentDate', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">Дата</a></th>
+            <th><a th:href="@{/admin/payments(sortField='status', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">Статус</a></th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="payment : ${payments}">
+            <td th:text="${payment.getId()}"></td>
+            <td th:text="${payment.getUser().getUsername()}"></td>
+            <td th:text="${payment.getAmount()}"></td>
+            <td th:text="${payment.getPaymentDate()}"></td>
+            <td th:text="${payment.getStatus()}"
+                th:classappend="${(payment.getStatus().toString() == 'PENDING') ?
+                'status-yellow' : (payment.getStatus().toString() == 'COMPLETED') ?
+                'status-green' : 'status-red'}"></td>
+            <td>
+                <form th:class="td-form"
+                      th:action="@{/admin/update-payment-status/{id}(id=${payment.id})}" method="post">
+                    <select name="status" class="td-form-select">
+                        <option value="PENDING" th:selected="${payment.getStatus().toString() == 'PENDING'}">В ожидании</option>
+                        <option value="COMPLETED" th:selected="${payment.getStatus().toString() == 'COMPLETED'}">Оплачено</option>
+                        <option value="FAILED" th:selected="${payment.getStatus().toString() == 'FAILED'}">Отменено</option>
+                    </select>
+                    <button type="submit" class="td-form-button">Обновить</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <span th:if="${page > 0}">
+            <a th:href="@{/admin/payments(page=${page - 1}, size=${size}, sort=${sort})}">Предыдущая</a>
+        </span>
+        <span th:if="${page < totalPages - 1}">
+            <a th:href="@{/admin/payments(page=${page + 1}, size=${size}, sort=${sort})}">Следующая</a>
+        </span>
+    </div>
+</main>
+<th:block th:insert="~{/layouts/footer.html::footerLayout()}"></th:block>
+</body>
+</html>

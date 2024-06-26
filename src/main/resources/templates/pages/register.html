@@ -6,15 +6,11 @@
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-<header>
-    <h1>Регистрация</h1>
-    <nav>
-        <a th:href="@{/login}">Вход</a> |
-        <a th:href="@{/}">Главная</a>
-    </nav>
-</header>
+<th:block th:insert="~{/layouts/header.html::headerLayout()}"></th:block>
+<th:block th:insert="~{/layouts/nav.html::navLayout(${userId}, ${log}, ${reg}, ${home}, ${lk}, ${req})}"></th:block>
 <main>
     <div th:class="auth">
+
         <form th:action="@{/register}" method="post">
 
             <label for="username">Имя пользователя:</label>
@@ -35,21 +31,22 @@
         </form>
 
         <div th:class="error_message" th:if="${error == true && type == 'unknown'}">
-            <h2>Что-то пошло не так!:(</h2>
-            <h2>Повторите попытку позже!</h2>
+            <div th:class="message">
+                <span class="icon" style="margin-right: 10px;">&#9888;</span>
+                Что-то пошло не так!:( Попробуйте снова.
+            </div>
         </div>
 
         <div th:class="success_message" th:if="${error == false}">
-            <h2>Вы успешно зарегистрированы!</h2>
+            <div th:class="message">
+                <span class="icon" style="margin-right: 10px;">&#10004;</span>
+                Регистрация прошла успешно!
+            </div>
             <a th:href="@{/login}">Войти</a>
         </div>
 
     </div>
 </main>
-<footer>
-    <section>
-        <p>&copy; 2024 Управляющая Компания</p>
-    </section>
-</footer>
+<th:block th:insert="~{/layouts/footer.html::footerLayout()}"></th:block>
 </body>
 </html>

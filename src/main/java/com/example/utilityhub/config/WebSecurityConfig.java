@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
 
@@ -39,12 +40,12 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests        // .anyRequest().permitAll()
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/register", "/login").anonymous()
-                                .anyRequest().authenticated()
-                        //.requestMatchers("/users/dashboard", "/logout").authenticated()
+                        .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/users/dashboard")
+                        .loginProcessingUrl("/login")
+                        .successHandler(myAuthenticationSuccessHandler())
                         .failureUrl("/login?error=true")
                 )
                 .logout((form) -> form
@@ -89,6 +90,11 @@ public class WebSecurityConfig {
         JdbcUserDetailsManager jdbcManager = new JdbcUserDetailsManager(dataSource);
         jdbcManager.setAuthenticationManager(authManager);
         return jdbcManager;
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MySimpleUrlAuthenticationSuccessHandler();
     }
 
 }
