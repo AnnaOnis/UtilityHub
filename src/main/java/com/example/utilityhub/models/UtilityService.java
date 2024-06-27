@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "utility_services")
 @Data
@@ -22,5 +24,7 @@ public class UtilityService {
     @Column(unique = true, nullable = false)
     private String name;
 
-    private String description;
+    private String measureUnit;
+
+    private BigDecimal tariff;
 }

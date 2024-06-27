@@ -29,11 +29,13 @@
 
     <section>
         <h2>Отправить уведомление</h2>
-        <form th:action="@{/admin/send-notification}" method="post">
+        <form th:action="@{/admin/send-notification}"
+              method="post"
+              th:class="admin-send-notification-form">
             <label for="userId">Пользователь (ID):</label>
             <input type="number" id="userId" name="userId">
-            <p>Оставьте поле пустым, чтобы отправить уведомление всем пользователям</p>
-            <label for="message">Сообщение:</label>
+            <span style="color: grey">Оставьте поле пустым, чтобы отправить уведомление всем пользователям</span>
+            <label for="message" style="margin-top: 30px;">Сообщение:</label>
             <textarea id="message" name="message"></textarea>
             <button type="submit">Отправить</button>
         </form>

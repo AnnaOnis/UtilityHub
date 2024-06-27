@@ -316,5 +316,79 @@ th {
     font-weight: bold;
 }
 
-/*#afafaf*/
+.admin-user-card{
+    height: 300px;
+    width: calc(100% - 40px);
+    display: inline-flex;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #ffffff;
+    align-items: center;
+}
+
+.admin-user-foto{
+    height: 100%;
+    width: 40%;
+}
+
+.admin-user-foto img{
+    height: 100%;
+    width: 100%;
+}
+
+.admin-user-info{
+    height: 100%;
+    width: 60%;
+    align-content: center;
+    text-align:center;
+    padding: 30px;
+}
+
+.front-icons {
+    position: relative;
+    top: 0;
+    font-size: 14px;
+    margin-right: 6px;
+    color: gray;
+}
+
+.admin-send-notification-form{
+    width: calc(100% - 40px);
+}
+
+.admin-send-notification-form button{
+    width: 50%;
+    margin-left: 25%;
+}
+
+.button-section-conteiner, .button-section{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.button-section-conteiner{
+    flex-direction: column;
+}
+
+.button-section{
+    flex-direction: row;
+}
+
+.button-section button {
+    width: 30%;
+    margin: 20px;
+    padding: 10px;
+    background: #1085e1;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.button-section button:hover {
+    background-color: #0865a9;
+}
+
+
 

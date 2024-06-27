@@ -4,14 +4,12 @@ import com.example.utilityhub.dao.NotificationService;
 import com.example.utilityhub.dao.UserService;
 import com.example.utilityhub.models.Notification;
 import com.example.utilityhub.models.User;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,5 +47,19 @@ public class NotificationController {
             notificationService.update(not);
         }
         return "redirect:/notifications";
+    }
+
+
+    @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+    public String deleteNotification(@PathVariable Long id,
+                                     HttpServletRequest request){
+
+        Optional<Notification> noti = notificationService.findById(id);
+        if(noti.isPresent()){
+            notificationService.delete(id);
+        }
+
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 }

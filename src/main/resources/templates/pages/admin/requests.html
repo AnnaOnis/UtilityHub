@@ -55,12 +55,21 @@
     </tbody>
   </table>
 
-  <div>
+  <div style="margin-top: 20px;">
         <span th:if="${page > 0}">
-            <a th:href="@{/admin/requests(page=${page - 1}, size=${size}, sort=${sort})}">Предыдущая</a>
+            <a th:href="@{/admin/requests(page=${page - 1},
+                                        size=${size},
+                                        sortField=${sortField},
+                                        sortDir=${sortDir})}"><<</a>
         </span>
-    <span th:if="${page < totalPages - 1}">
-            <a th:href="@{/admin/requests(page=${page + 1}, size=${size}, sort=${sort})}">Следующая</a>
+
+        <span style="margin-right: 20px;">[[${page + 1}]]</span>
+
+        <span th:if="${page < totalPages - 1}">
+            <a th:href="@{/admin/requests(page=${page + 1},
+                                        size=${size},
+                                        sortField=${sortField},
+                                        sortDir=${sortDir})}">>></a>
         </span>
   </div>
 </main>

@@ -11,12 +11,14 @@ import com.example.utilityhub.models.User;
 import com.example.utilityhub.models.enums.PaymentStatus;
 import com.example.utilityhub.models.enums.RequestStatus;
 import com.example.utilityhub.models.enums.Role;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +66,62 @@ public class AdminController {
         userService.delete(id);
         return "redirect:/admin/users";
     }
+    @GetMapping("/get-user/{id}")
+    public String getUser(Model model,
+                          @PathVariable Long id,
+                          @RequestParam(required = false) String section,
+                          @RequestParam(defaultValue = "0") int page,
+                          @RequestParam(defaultValue = "5") int size,
+                          @RequestParam(defaultValue = "id") String sortField,
+                          @RequestParam(defaultValue = "asc") String sortDir) {
+
+        Optional<User> optionalUser = userService.findById(id);
+        if(optionalUser.isPresent()){
+            User user = optionalUser.get();
+            model.addAttribute("user", user);
+            model.addAttribute("userId", user.getId());
+        }
+
+        model.addAttribute("section", section);
+
+        if (section == null || section.equals("notifications")) {
+            Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortField);
+            Pageable pageable = PageRequest.of(page, size, sort);
+            Page<Notification> notifications = notificationService.getAllNotificationsPageable(pageable);
+            model.addAttribute("notifications", notifications.getContent());
+            model.addAttribute("notificationPage", notifications.getNumber());
+            model.addAttribute("notificationTotalPages", notifications.getTotalPages());
+            model.addAttribute("notificationSize", notifications.getSize());
+            model.addAttribute("notificationSortField", sortField);
+            model.addAttribute("notificationSortDir", sortDir);
+        }
+
+        if (section == null || section.equals("payments")) {
+            Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortField);
+            Pageable pageable = PageRequest.of(page, size, sort);
+            Page<Payment> payments = paymentService.getAllPaymentsPageable(pageable);
+            model.addAttribute("payments", payments.getContent());
+            model.addAttribute("paymentPage", payments.getNumber());
+            model.addAttribute("paymentTotalPages", payments.getTotalPages());
+            model.addAttribute("paymentSize", payments.getSize());
+            model.addAttribute("paymentSortField", sortField);
+            model.addAttribute("paymentSortDir", sortDir);;
+        }
+
+        if (section == null || section.equals("requests")) {
+            Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortField);
+            Pageable pageable = PageRequest.of(page, size, sort);
+            Page<Request> requests = requestService.getAllRequestsPageable(pageable);
+            model.addAttribute("requests", requests.getContent());
+            model.addAttribute("requestPage", requests.getNumber());
+            model.addAttribute("requestTotalPages", requests.getTotalPages());
+            model.addAttribute("requestSize", requests.getSize());
+            model.addAttribute("requestSortField", sortField);
+            model.addAttribute("requestSortDir", sortDir);
+        }
+
+        return "pages/admin/user";
+    }
 
 //Request`s requests
     @GetMapping("/requests")
@@ -88,14 +146,17 @@ public class AdminController {
     }
 
     @PostMapping("/update-request-status/{id}")
-    public String updateRequestStatus(@PathVariable Long id, @RequestParam String status) {
+    public String updateRequestStatus(@PathVariable Long id,
+                                      @RequestParam String status,
+                                      HttpServletRequest request) {
         Optional<Request> optionalRequest = requestService.findById(id);
         if (optionalRequest.isPresent()) {
-            Request request = optionalRequest.get();
-            request.setStatus(RequestStatus.valueOf(status));
-            requestService.update(request);
+            Request userRequest = optionalRequest.get();
+            userRequest.setStatus(RequestStatus.valueOf(status));
+            requestService.update(userRequest);
         }
-        return "redirect:/admin/requests";
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 
 //Payment`s requests
@@ -122,14 +183,17 @@ public class AdminController {
     }
 
     @PostMapping("/update-payment-status/{id}")
-    public String updatePaymentStatus(@PathVariable Long id, @RequestParam String status) {
+    public String updatePaymentStatus(@PathVariable Long id,
+                                      @RequestParam String status,
+                                      HttpServletRequest request) {
         Optional<Payment> optionalPayment = paymentService.findById(id);
         if (optionalPayment != null) {
             Payment payment = optionalPayment.get();
             payment.setStatus(PaymentStatus.valueOf(status));
             paymentService.update(payment);
         }
-        return "redirect:/admin/payments";
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 
 //Notification`s requests
@@ -151,39 +215,36 @@ public class AdminController {
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
 
+
         return "pages/admin/notifications";
     }
     @PostMapping("/send-notification")
-    public String sendNotification(@RequestParam(required = false) Long userId, @RequestParam String message) {
-
-        if (userId == null) {
-            // Отправка уведомления всем пользователям
-            List<User> users = userService.getAll();
-            for (User user : users) {
-                if(user.getRole() == Role.USER){
+    public String sendNotification(@RequestParam(required = false) Long userId,
+                                   @RequestParam String message,
+                                   HttpServletRequest request) {
+        if(!message.isEmpty()){
+            if (userId == null) {
+                // Отправка уведомления всем пользователям
+                List<User> users = userService.getAll();
+                for (User user : users) {
+                    if(user.getRole() == Role.USER){
+                        user.addNotification(message);
+                        userService.update(user);
+                    }
+                }
+            } else {
+                // Отправка уведомления конкретному пользователю
+                Optional<User> userOpt = userService.findById(userId);
+                if (userOpt.isPresent()) {
+                    User user = userOpt.get();
                     user.addNotification(message);
                     userService.update(user);
                 }
             }
-        } else {
-            // Отправка уведомления конкретному пользователю
-            Optional<User> userOpt = userService.findById(userId);
-            if (userOpt.isPresent()) {
-                User user = userOpt.get();
-                user.addNotification(message);
-                userService.update(user);
-            }
         }
-        return "redirect:/admin/dashboard";
+
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 
-//    private void addNotificationToUser(User user, String message){
-//        Notification notification = new Notification();
-//        notification.setUser(user);
-//        notification.setMessage(message);
-//        notification.setIsRead(false);
-//
-//        user.getNotifications().add(notification);
-//        userService.update(user);
-//    }
 }

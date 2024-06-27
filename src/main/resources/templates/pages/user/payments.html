@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>Платежи</title>
     <link rel="stylesheet" th:href="@{/style.css}">
+    <script src="/js/create-payment.js" defer></script>
 </head>
-<body>
+<body th:onload="updateServiceDetails([[${services}]])">
 <th:block th:insert="~{/layouts/header.html::headerLayout()}"></th:block>
 <nav>
     <ul th:class="nav-ul">
@@ -39,22 +40,36 @@
             </tbody>
         </table>
     </section>
+
     <section>
-    <h3>Создать новый платеж</h3>
-    <form th:action="@{/payments}" method="post">
-        <label for="amount">Сумма:</label>
-        <input type="number" id="amount" name="amount" required>
-        <label for="service">Услуга:</label>
-        <select id="service" name="utilityServiceId" required>
-            <option th:each="service : ${services}"
-                    th:value="${service.getId()}"
-                    th:text="${service.getName()}"></option>
-        </select>
-        <input type="hidden" id="userId" name="userId" th:value="${userId}" required>
-        <button type="submit">Оплатить</button>
-    </form>
+        <h3>Создать новый платеж</h3>
+        <form th:action="@{/payments}" method="post">
+
+            <label for="service">Услуга</label>
+            <select  id="service" name="utilityServiceId" th:onchange="updateServiceDetails([[${services}]])" required>
+                <option th:each="service : ${services}" th:value="${service.getId()}" th:text="${service.getName()}"></option>
+            </select>
+
+            <p style="color: black; font-size: 20px">
+                <b>Тариф:</b> <span id="tariff"></span> руб/<span id="measureUnit"></span>
+            </p>
+
+            <label for="quantity">Количество</label>
+            <input type="number" id="quantity" step="1" min="0" th:oninput="updateAmount()" required>
+
+            <label for="amount">Сумма</label>
+            <input type="text"  id="amount" name="amount" readonly>
+
+            <input type="hidden" id="userId" name="userId" th:value="${userId}" required>
+
+            <button type="submit">Отправить платеж</button>
+        </form>
+
     </section>
 </main>
 <th:block th:insert="~{/layouts/footer.html::footerLayout()}"></th:block>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 </body>
 </html>

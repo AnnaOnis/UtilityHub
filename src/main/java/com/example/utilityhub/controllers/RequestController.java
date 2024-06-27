@@ -60,4 +60,16 @@ public class RequestController {
 
         return "redirect:/requests";
     }
+
+    @GetMapping ("/delete/{id}")
+    public String deleteRequest(@PathVariable Long id){
+
+        Optional<Request> optionalRequest = requestService.findById(id);
+
+        if(optionalRequest.isPresent()){
+            requestService.delete(id);
+        }
+
+        return "redirect:/requests";
+    }
 }

@@ -25,6 +25,7 @@
                 <th>Описание</th>
                 <th>Тип</th>
                 <th>Статус</th>
+                <th th:width="70px">Действия</th>
             </tr>
             </thead>
             <tbody>
@@ -37,6 +38,11 @@
                     th:classappend="${(request.getStatus().toString() == 'PENDING') ?
                 'status-red' : (request.getStatus().toString() == 'COMPLETED') ?
                 'status-green' : 'status-yellow'}"></td>
+                <td>
+                    <a th:class="td-a"
+                       th:href="@{/requests/delete/{id}(id=${request.getId()})}"
+                       th:text="'Удалить'"></a>
+                </td>
             </tr>
             </tbody>
         </table>

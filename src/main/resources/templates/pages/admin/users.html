@@ -42,6 +42,10 @@
                       th:action="@{/admin/delete-user/{id}(id=${user.getId()})}" method="post">
                     <button type="submit">Удалить</button>
                 </form>
+                <form th:class="td-form"
+                      th:action="@{/admin/get-user/{id}(id=${user.getId()})}" method="get">
+                    <button type="submit">Выбрать</button>
+                </form>
             </td>
         </tr>
         </tbody>

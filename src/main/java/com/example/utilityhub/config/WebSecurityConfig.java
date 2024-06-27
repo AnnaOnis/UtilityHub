@@ -16,6 +16,8 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import javax.sql.DataSource;
 
@@ -96,5 +98,6 @@ public class WebSecurityConfig {
     public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
         return new MySimpleUrlAuthenticationSuccessHandler();
     }
+
 
 }

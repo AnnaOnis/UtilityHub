@@ -24,6 +24,7 @@
         <tr>
             <th><a th:href="@{/admin/payments(sortField='id', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">ID</a></th>
             <th><a th:href="@{/admin/payments(sortField='user', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">Пользователь</a></th>
+            <th><a th:href="@{/admin/payments(sortField='service', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">Услуга</a></th>
             <th>Сумма</th>
             <th><a th:href="@{/admin/payments(sortField='paymentDate', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">Дата</a></th>
             <th><a th:href="@{/admin/payments(sortField='status', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">Статус</a></th>
@@ -33,7 +34,8 @@
         <tbody>
         <tr th:each="payment : ${payments}">
             <td th:text="${payment.getId()}"></td>
-            <td th:text="${payment.getUser().getUsername()}"></td>
+            <td th:text="${payment.getUser().getUsername()}">
+            <td th:text="${payment.getService().getName()}"></td>
             <td th:text="${payment.getAmount()}"></td>
             <td th:text="${payment.getPaymentDate()}"></td>
             <td th:text="${payment.getStatus()}"
@@ -55,12 +57,21 @@
         </tbody>
     </table>
 
-    <div>
+    <div style="margin-top: 20px;">
         <span th:if="${page > 0}">
-            <a th:href="@{/admin/payments(page=${page - 1}, size=${size}, sort=${sort})}">Предыдущая</a>
+            <a th:href="@{/admin/payments(page=${page - 1},
+                                        size=${size},
+                                        sortField=${sortField},
+                                        sortDir=${sortDir})}"><<</a>
         </span>
+
+        <span style="margin-right: 20px;">[[${page + 1}]]</span>
+
         <span th:if="${page < totalPages - 1}">
-            <a th:href="@{/admin/payments(page=${page + 1}, size=${size}, sort=${sort})}">Следующая</a>
+            <a th:href="@{/admin/payments(page=${page + 1},
+                                        size=${size},
+                                        sortField=${sortField},
+                                        sortDir=${sortDir})}">>></a>
         </span>
     </div>
 </main>

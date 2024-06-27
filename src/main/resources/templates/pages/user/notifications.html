@@ -23,7 +23,7 @@
             <th>Дата</th>
             <th>Сообщение</th>
             <th>Статус</th>
-            <th th:width="70px"></th>
+            <th th:width="70px">Действия</th>
         </tr>
         </thead>
         <tbody>
@@ -36,6 +36,9 @@
                 <a th:class="td-a" th:if="${notification.getIsRead() == false}"
                    th:href="@{/notifications/read/{id}(id=${notification.getId()})}"
                    th:text="'Прочитать'"></a>
+                <a th:class="td-a" th:if="${notification.getIsRead() == true}"
+                   th:href="@{/notifications/delete/{id}(id=${notification.getId()})}"
+                   th:text="'Удалить'"></a>
             </td>
         </tr>
         </tbody>
