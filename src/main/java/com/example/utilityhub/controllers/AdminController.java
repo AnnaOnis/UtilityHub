@@ -23,6 +23,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,44 +82,44 @@ public class AdminController {
             User user = optionalUser.get();
             model.addAttribute("user", user);
             model.addAttribute("userId", user.getId());
-        }
 
-        model.addAttribute("section", section);
+            model.addAttribute("section", section);
 
-        if (section == null || section.equals("notifications")) {
-            Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortField);
-            Pageable pageable = PageRequest.of(page, size, sort);
-            Page<Notification> notifications = notificationService.getAllNotificationsPageable(pageable);
-            model.addAttribute("notifications", notifications.getContent());
-            model.addAttribute("notificationPage", notifications.getNumber());
-            model.addAttribute("notificationTotalPages", notifications.getTotalPages());
-            model.addAttribute("notificationSize", notifications.getSize());
-            model.addAttribute("notificationSortField", sortField);
-            model.addAttribute("notificationSortDir", sortDir);
-        }
+            if (section == null || section.equals("notifications")) {
+                Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortField);
+                Pageable pageable = PageRequest.of(page, size, sort);
+                Page<Notification> notifications = notificationService.getNotificationsPageableByUserId(user.getId(), pageable);
+                model.addAttribute("notifications", notifications.getContent());
+                model.addAttribute("notificationPage", notifications.getNumber());
+                model.addAttribute("notificationTotalPages", notifications.getTotalPages());
+                model.addAttribute("notificationSize", notifications.getSize());
+                model.addAttribute("notificationSortField", sortField);
+                model.addAttribute("notificationSortDir", sortDir);
+            }
 
-        if (section == null || section.equals("payments")) {
-            Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortField);
-            Pageable pageable = PageRequest.of(page, size, sort);
-            Page<Payment> payments = paymentService.getAllPaymentsPageable(pageable);
-            model.addAttribute("payments", payments.getContent());
-            model.addAttribute("paymentPage", payments.getNumber());
-            model.addAttribute("paymentTotalPages", payments.getTotalPages());
-            model.addAttribute("paymentSize", payments.getSize());
-            model.addAttribute("paymentSortField", sortField);
-            model.addAttribute("paymentSortDir", sortDir);;
-        }
+            if (section == null || section.equals("payments")) {
+                Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortField);
+                Pageable pageable = PageRequest.of(page, size, sort);
+                Page<Payment> payments = paymentService.getPaymentsPageableByUserId(user.getId(), pageable);
+                model.addAttribute("payments", payments.getContent());
+                model.addAttribute("paymentPage", payments.getNumber());
+                model.addAttribute("paymentTotalPages", payments.getTotalPages());
+                model.addAttribute("paymentSize", payments.getSize());
+                model.addAttribute("paymentSortField", sortField);
+                model.addAttribute("paymentSortDir", sortDir);;
+            }
 
-        if (section == null || section.equals("requests")) {
-            Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortField);
-            Pageable pageable = PageRequest.of(page, size, sort);
-            Page<Request> requests = requestService.getAllRequestsPageable(pageable);
-            model.addAttribute("requests", requests.getContent());
-            model.addAttribute("requestPage", requests.getNumber());
-            model.addAttribute("requestTotalPages", requests.getTotalPages());
-            model.addAttribute("requestSize", requests.getSize());
-            model.addAttribute("requestSortField", sortField);
-            model.addAttribute("requestSortDir", sortDir);
+            if (section == null || section.equals("requests")) {
+                Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortField);
+                Pageable pageable = PageRequest.of(page, size, sort);
+                Page<Request> requests = requestService.getRequestsPageableByUserId(user.getId(), pageable);
+                model.addAttribute("requests", requests.getContent());
+                model.addAttribute("requestPage", requests.getNumber());
+                model.addAttribute("requestTotalPages", requests.getTotalPages());
+                model.addAttribute("requestSize", requests.getSize());
+                model.addAttribute("requestSortField", sortField);
+                model.addAttribute("requestSortDir", sortDir);
+            }
         }
 
         return "pages/admin/user";
@@ -153,6 +155,11 @@ public class AdminController {
         if (optionalRequest.isPresent()) {
             Request userRequest = optionalRequest.get();
             userRequest.setStatus(RequestStatus.valueOf(status));
+            if(status.equals("IN_PROGRESS")){
+                userRequest.setDateOfProcessing(LocalDate.of(2024, 6, 29));
+            }else if(status.equals("COMPLETED")){
+                userRequest.setDateOfCompleted(LocalDateTime.now().toLocalDate());
+            }
             requestService.update(userRequest);
         }
         String referer = request.getHeader("Referer");

@@ -2,6 +2,7 @@ package com.example.utilityhub.services;
 
 import com.example.utilityhub.dao.PaymentService;
 import com.example.utilityhub.models.Payment;
+import com.example.utilityhub.models.Request;
 import com.example.utilityhub.repositories.PaymentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,11 @@ public class PaymentServiceImplementation implements PaymentService {
     @Override
     public Page<Payment> getAllPaymentsPageable(Pageable pageable) {
         return paymentRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Payment> getPaymentsPageableByUserId(Long userId, Pageable pageable) {
+        return paymentRepository.findPaymentPageableByUserId(userId, pageable);
     }
 
     @Override

@@ -60,7 +60,8 @@
                                                     size=${notificationSize},
                                                     sortField='id',
                                                     sortDir=${notificationSortDir == 'asc' ? 'desc' : 'asc'},
-                                                    section='notifications')}">ID</a></th>
+                                                    section='notifications',
+                                                    type='userId')}">ID</a></th>
                     <th><a th:href="@{/admin/get-user/{id}(id=${userId},
                                                     page=${notificationPage},
                                                     size=${notificationSize},
@@ -153,10 +154,12 @@
                     <td th:text="${payment.getService().getName()}"></td>
                     <td th:text="${payment.getAmount()}"></td>
                     <td th:text="${payment.getPaymentDate()}"></td>
-                    <td th:text="${payment.getStatus()}"
+                    <td th:text="${(payment.getStatus().toString() == 'PENDING') ?
+                                'В ожидании' : (payment.getStatus().toString() == 'COMPLETED') ?
+                                'Принят' : 'Отменен'}"
                         th:classappend="${(payment.getStatus().toString() == 'PENDING') ?
-                'status-yellow' : (payment.getStatus().toString() == 'COMPLETED') ?
-                'status-green' : 'status-red'}"></td>
+                                        'status-yellow' : (payment.getStatus().toString() == 'COMPLETED') ?
+                                        'status-green' : 'status-red'}"></td>
                     <td>
                         <form th:class="td-form"
                               th:action="@{/admin/update-payment-status/{id}(id=${payment.id})}" method="post">
@@ -224,10 +227,12 @@
                     <td th:text="${request.getId()}"></td>
                     <td th:text="${request.getDescription()}"></td>
                     <td th:text="${request.getCreatedAt()}"></td>
-                    <td th:text="${request.getStatus()}"
+                    <td th:text="${(request.getStatus().toString() == 'PENDING') ?
+                                'В ожидании' : (request.getStatus().toString() == 'COMPLETED') ?
+                                'Завершен ' + request.getDateOfCompleted() : 'Взят в работу ' + request.getDateOfProcessing() }"
                         th:classappend="${(request.getStatus().toString() == 'PENDING') ?
-                'status-red' : (request.getStatus().toString() == 'COMPLETED') ?
-                'status-green' : 'status-yellow'}"></td>
+                                        'status-red' : (request.getStatus().toString() == 'COMPLETED') ?
+                                        'status-green' : 'status-yellow'}"></td>
                     <td>
                         <form th:class="td-form"
                               th:action="@{/admin/update-request-status/{id}(id=${request.id})}" method="post">

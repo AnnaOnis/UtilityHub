@@ -10,4 +10,6 @@ public interface RequestService extends DAO<Request>{
     List<Request> getRequestsByUserId(Long id);
 
     Page<Request> getAllRequestsPageable(Pageable pageable);
+
+    Page<Request> getRequestsPageableByUserId(Long userId, Pageable pageable);
 }

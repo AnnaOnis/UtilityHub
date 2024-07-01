@@ -34,7 +34,9 @@
                 <td th:text="${request.getCreatedAt()}"></td>
                 <td th:text="${request.getDescription()}"></td>
                 <td th:text="${request.getType()}"></td>
-                <td th:text="${request.getStatus()}"
+                <td th:text="${(request.getStatus().toString() == 'PENDING') ?
+                'В ожидании' : (request.getStatus().toString() == 'COMPLETED') ?
+                'Завершен ' + request.getDateOfCompleted() : 'Взят в работу ' + request.getDateOfProcessing() }"
                     th:classappend="${(request.getStatus().toString() == 'PENDING') ?
                 'status-red' : (request.getStatus().toString() == 'COMPLETED') ?
                 'status-green' : 'status-yellow'}"></td>

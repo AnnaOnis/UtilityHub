@@ -2,6 +2,7 @@ package com.example.utilityhub.services;
 
 import com.example.utilityhub.dao.NotificationService;
 import com.example.utilityhub.models.Notification;
+import com.example.utilityhub.models.Request;
 import com.example.utilityhub.repositories.NotificationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,11 @@ public class NotificationServiceImplementation implements NotificationService {
     @Override
     public Page<Notification> getAllNotificationsPageable(Pageable pageable) {
         return notificationRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Notification> getNotificationsPageableByUserId(Long userId, Pageable pageable) {
+        return notificationRepository.findNotificationsPageableByUserId(userId, pageable);
     }
 
     @Override

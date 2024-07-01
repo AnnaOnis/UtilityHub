@@ -39,6 +39,11 @@ public class RequestServiceImplementation implements RequestService {
     }
 
     @Override
+    public Page<Request> getRequestsPageableByUserId(Long userId, Pageable pageable) {
+        return requestRepository.findRequestPageableByUserId(userId, pageable);
+    }
+
+    @Override
     public Optional<Request> findById(Long id) {
         return requestRepository.findById(id);
     }

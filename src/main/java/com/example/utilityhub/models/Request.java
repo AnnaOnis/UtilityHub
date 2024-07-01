@@ -6,6 +6,7 @@ import lombok.*;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "requests")
@@ -37,6 +38,12 @@ public class Request {
     @Column(nullable = false)
     private RequestStatus status;
 
+    @Column
+    private LocalDate dateOfProcessing;
+
+    @Column
+    private LocalDate dateOfCompleted;
+
     @Column(nullable = false, updatable = false)
     private Timestamp createdAt;
 
@@ -53,6 +60,18 @@ public class Request {
             this.type = RequestType.valueOf(type.toUpperCase());
         } catch (IllegalArgumentException e) {
             this.type = RequestType.OTHER;
+        }
+    }
+
+    public void setDateOfProcessing(LocalDate date){
+        if (dateOfProcessing == null) {
+            this.dateOfProcessing = date;
+        }
+    }
+
+    public void setDateOfCompleted(LocalDate date){
+        if (dateOfCompleted == null) {
+            this.dateOfCompleted = date;
         }
     }
 }

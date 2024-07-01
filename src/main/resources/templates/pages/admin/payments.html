@@ -38,7 +38,9 @@
             <td th:text="${payment.getService().getName()}"></td>
             <td th:text="${payment.getAmount()}"></td>
             <td th:text="${payment.getPaymentDate()}"></td>
-            <td th:text="${payment.getStatus()}"
+            <td th:text="${(payment.getStatus().toString() == 'PENDING') ?
+                'В ожидании' : (payment.getStatus().toString() == 'COMPLETED') ?
+                'Принят' : 'Отменен'}"
                 th:classappend="${(payment.getStatus().toString() == 'PENDING') ?
                 'status-yellow' : (payment.getStatus().toString() == 'COMPLETED') ?
                 'status-green' : 'status-red'}"></td>

@@ -252,15 +252,19 @@ th {
 
 .td-a{
     text-decoration: none;
+    display: block;
+    width: calc(100% - 20px);
     padding: 10px;
-    border: 1px solid;
-    text-align: center;
-    background-color: lightsteelblue;
-    border-radius: 5px;
-    width: calc(100% - 5px);
+    background: #1085e1;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+
 }
 .td-a:hover{
-    background-color: #999999;
+    background-color: #0865a9;
 }
 
 .td-form {
