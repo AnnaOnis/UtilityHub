@@ -1,9 +1,8 @@
-package com.example.utilityhub.services;
+package com.example.utilityhub.services.implementations;
 
-import com.example.utilityhub.dao.PaymentService;
-import com.example.utilityhub.models.Payment;
-import com.example.utilityhub.models.Request;
-import com.example.utilityhub.repositories.PaymentRepository;
+import com.example.utilityhub.services.interfaces.PaymentService;
+import com.example.utilityhub.models.entities.Payment;
+import com.example.utilityhub.models.repositories.PaymentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

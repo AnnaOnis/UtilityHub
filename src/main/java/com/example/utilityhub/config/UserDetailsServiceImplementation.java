@@ -1,7 +1,7 @@
 package com.example.utilityhub.config;
 
-import com.example.utilityhub.models.User;
-import com.example.utilityhub.repositories.UserRepository;
+import com.example.utilityhub.models.entities.User;
+import com.example.utilityhub.models.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

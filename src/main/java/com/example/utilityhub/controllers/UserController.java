@@ -1,16 +1,8 @@
 package com.example.utilityhub.controllers;
 
-
-
-import com.example.utilityhub.dao.NotificationService;
-import com.example.utilityhub.dao.PaymentService;
-import com.example.utilityhub.dao.RequestService;
-import com.example.utilityhub.dao.UserService;
+import com.example.utilityhub.services.interfaces.UserService;
 import com.example.utilityhub.dto.UserUpdateDTO;
-import com.example.utilityhub.models.Notification;
-import com.example.utilityhub.models.Payment;
-import com.example.utilityhub.models.Request;
-import com.example.utilityhub.models.User;
+import com.example.utilityhub.models.entities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -27,10 +18,7 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
-    private final RequestService requestService;
-    private final NotificationService notificationService;
     private final PasswordEncoder passwordEncoder;
-    private final PaymentService paymentService;
 
     @GetMapping("/dashboard")
     public String getUserDashboard(Model model, Authentication auth) {
@@ -46,15 +34,6 @@ public class UserController {
                         user.get().getEmail(),
                         user.get().getAddress()));
                 model.addAttribute("userId", user.get().getId());
-
-            List<Payment> payments = paymentService.getPaymentsByUserId(user.get().getId());
-            model.addAttribute("payments", payments);
-
-            List<Request> requests = requestService.getRequestsByUserId(user.get().getId());
-            model.addAttribute("requests", requests);
-
-            List<Notification> notifications = notificationService.getNotificationsByUserId(user.get().getId());
-            model.addAttribute("notifications", notifications);
 
                 return "pages/user/user-dashboard";
             }

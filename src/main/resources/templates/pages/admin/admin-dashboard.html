@@ -18,17 +18,18 @@
 <main>
 
     <section>
-        <h2>Ссылки на страницы</h2>
+        <h2>Управление</h2>
         <ul>
             <li><a th:href="@{/admin/users}">Пользователи</a></li>
             <li><a th:href="@{/admin/requests}">Запросы</a></li>
             <li><a th:href="@{/admin/payments}">Платежи</a></li>
             <li><a th:href="@{/admin/notifications}">Уведомления</a></li>
+            <li><a th:href="@{/admin/utility_services}">Услуги</a></li>
         </ul>
     </section>
 
     <section>
-        <h2>Отправить уведомление</h2>
+        <h2>Рассылка уведомлений</h2>
         <form th:action="@{/admin/send-notification}"
               method="post"
               th:class="admin-send-notification-form">

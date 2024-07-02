@@ -1,10 +1,12 @@
-package com.example.utilityhub.services;
+package com.example.utilityhub.services.implementations;
 
-import com.example.utilityhub.dao.UtilityServiceService;
-import com.example.utilityhub.models.UtilityService;
-import com.example.utilityhub.repositories.UtilityServiceRepository;
+import com.example.utilityhub.services.interfaces.UtilityServiceService;
+import com.example.utilityhub.models.entities.UtilityService;
+import com.example.utilityhub.models.repositories.UtilityServiceRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,11 +46,15 @@ public class UtilityServiceServiceImplementation implements UtilityServiceServic
 
     @Override
     public boolean delete(Long id) {
-        if (!utilityServiceRepository.existsById(id)) {
-            throw new EntityNotFoundException("UtilityService not found with id " + id);
-        }else {
+        if (utilityServiceRepository.existsById(id)) {
             utilityServiceRepository.deleteById(id);
             return true;
         }
+        return false;
+    }
+
+    @Override
+    public Page<UtilityService> getAllUtilityServicesPageable(Pageable pageable) {
+        return utilityServiceRepository.findAll(pageable);
     }
 }

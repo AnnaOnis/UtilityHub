@@ -1,8 +1,8 @@
 package com.example.utilityhub.controllers;
 
-import com.example.utilityhub.dao.UserService;
+import com.example.utilityhub.services.interfaces.UserService;
 import com.example.utilityhub.dto.UserRegisterDTO;
-import com.example.utilityhub.models.User;
+import com.example.utilityhub.models.entities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

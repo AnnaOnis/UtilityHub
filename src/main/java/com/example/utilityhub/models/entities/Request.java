@@ -1,4 +1,4 @@
-package com.example.utilityhub.models;
+package com.example.utilityhub.models.entities;
 
 import com.example.utilityhub.models.enums.RequestStatus;
 import com.example.utilityhub.models.enums.RequestType;

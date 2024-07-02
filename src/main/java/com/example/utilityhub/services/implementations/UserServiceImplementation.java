@@ -1,8 +1,8 @@
-package com.example.utilityhub.services;
+package com.example.utilityhub.services.implementations;
 
-import com.example.utilityhub.dao.UserService;
-import com.example.utilityhub.models.User;
-import com.example.utilityhub.repositories.UserRepository;
+import com.example.utilityhub.services.interfaces.UserService;
+import com.example.utilityhub.models.entities.User;
+import com.example.utilityhub.models.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

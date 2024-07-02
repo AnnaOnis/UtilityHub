@@ -1,13 +1,12 @@
 package com.example.utilityhub.controllers;
 
-import com.example.utilityhub.dao.PaymentService;
-import com.example.utilityhub.dao.UserService;
-import com.example.utilityhub.dao.UtilityServiceService;
+import com.example.utilityhub.services.interfaces.PaymentService;
+import com.example.utilityhub.services.interfaces.UserService;
+import com.example.utilityhub.services.interfaces.UtilityServiceService;
 import com.example.utilityhub.dto.PaymentDTO;
-import com.example.utilityhub.models.Notification;
-import com.example.utilityhub.models.Payment;
-import com.example.utilityhub.models.User;
-import com.example.utilityhub.models.UtilityService;
+import com.example.utilityhub.models.entities.Payment;
+import com.example.utilityhub.models.entities.User;
+import com.example.utilityhub.models.entities.UtilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;

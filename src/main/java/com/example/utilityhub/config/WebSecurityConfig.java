@@ -1,6 +1,6 @@
 package com.example.utilityhub.config;
 
-import com.example.utilityhub.repositories.UserRepository;
+import com.example.utilityhub.models.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +16,6 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
-import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import javax.sql.DataSource;
 
@@ -39,7 +37,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeHttpRequests((requests) -> requests        // .anyRequest().permitAll()
+                .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/register", "/login").anonymous()
                         .anyRequest().authenticated()
@@ -56,8 +54,8 @@ public class WebSecurityConfig {
                         .deleteCookies("JSESSIONID")
                         .clearAuthentication(true)
                         .logoutSuccessUrl("/")
-                )
-                .requestCache().disable();
+                );
+                //.requestCache().disable();
         return http.build();
     }
 

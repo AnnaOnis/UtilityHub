@@ -1,4 +1,4 @@
-package com.example.utilityhub.models;
+package com.example.utilityhub.models.entities;
 
 import lombok.*;
 

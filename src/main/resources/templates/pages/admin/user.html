@@ -165,8 +165,8 @@
                               th:action="@{/admin/update-payment-status/{id}(id=${payment.id})}" method="post">
                             <select name="status" class="td-form-select">
                                 <option value="PENDING" th:selected="${payment.getStatus().toString() == 'PENDING'}">В ожидании</option>
-                                <option value="COMPLETED" th:selected="${payment.getStatus().toString() == 'COMPLETED'}">Оплачено</option>
-                                <option value="FAILED" th:selected="${payment.getStatus().toString() == 'FAILED'}">Отменено</option>
+                                <option value="COMPLETED" th:selected="${payment.getStatus().toString() == 'COMPLETED'}">Принят</option>
+                                <option value="FAILED" th:selected="${payment.getStatus().toString() == 'FAILED'}">Отменен</option>
                             </select>
                             <button type="submit" class="td-form-button">Обновить</button>
                         </form>
@@ -238,8 +238,8 @@
                               th:action="@{/admin/update-request-status/{id}(id=${request.id})}" method="post">
                             <select name="status">
                                 <option value="PENDING" th:selected="${request.getStatus().toString() == 'PENDING'}">В ожидании</option>
-                                <option value="IN_PROGRESS" th:selected="${request.getStatus().toString() == 'IN_PROGRESS'}">В обработке</option>
-                                <option value="COMPLETED" th:selected="${request.getStatus().toString() == 'COMPLETED'}">Обработан</option>
+                                <option value="IN_PROGRESS" th:selected="${request.getStatus().toString() == 'IN_PROGRESS'}">Взят в работу</option>
+                                <option value="COMPLETED" th:selected="${request.getStatus().toString() == 'COMPLETED'}">Завершен</option>
                             </select>
                             <button type="submit">Обновить</button>
                         </form>

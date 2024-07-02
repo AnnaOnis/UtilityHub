@@ -1,6 +1,7 @@
-package com.example.utilityhub.dao;
+package com.example.utilityhub.services.interfaces;
 
-import com.example.utilityhub.models.User;
+import com.example.utilityhub.dao.DAO;
+import com.example.utilityhub.models.entities.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

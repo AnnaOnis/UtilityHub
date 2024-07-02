@@ -1,8 +1,6 @@
-package com.example.utilityhub.repositories;
+package com.example.utilityhub.models.repositories;
 
-import com.example.utilityhub.models.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.example.utilityhub.models.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

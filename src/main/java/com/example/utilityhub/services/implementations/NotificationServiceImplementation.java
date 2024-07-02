@@ -1,9 +1,8 @@
-package com.example.utilityhub.services;
+package com.example.utilityhub.services.implementations;
 
-import com.example.utilityhub.dao.NotificationService;
-import com.example.utilityhub.models.Notification;
-import com.example.utilityhub.models.Request;
-import com.example.utilityhub.repositories.NotificationRepository;
+import com.example.utilityhub.services.interfaces.NotificationService;
+import com.example.utilityhub.models.entities.Notification;
+import com.example.utilityhub.models.repositories.NotificationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

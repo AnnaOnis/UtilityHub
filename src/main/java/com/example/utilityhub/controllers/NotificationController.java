@@ -1,9 +1,9 @@
 package com.example.utilityhub.controllers;
 
-import com.example.utilityhub.dao.NotificationService;
-import com.example.utilityhub.dao.UserService;
-import com.example.utilityhub.models.Notification;
-import com.example.utilityhub.models.User;
+import com.example.utilityhub.services.interfaces.NotificationService;
+import com.example.utilityhub.services.interfaces.UserService;
+import com.example.utilityhub.models.entities.Notification;
+import com.example.utilityhub.models.entities.User;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

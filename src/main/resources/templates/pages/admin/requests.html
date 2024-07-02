@@ -47,8 +47,8 @@
               th:action="@{/admin/update-request-status/{id}(id=${request.id})}" method="post">
           <select name="status">
             <option value="PENDING" th:selected="${request.getStatus().toString() == 'PENDING'}">В ожидании</option>
-            <option value="IN_PROGRESS" th:selected="${request.getStatus().toString() == 'IN_PROGRESS'}">В обработке</option>
-            <option value="COMPLETED" th:selected="${request.getStatus().toString() == 'COMPLETED'}">Обработан</option>
+            <option value="IN_PROGRESS" th:selected="${request.getStatus().toString() == 'IN_PROGRESS'}">Взят в работу</option>
+            <option value="COMPLETED" th:selected="${request.getStatus().toString() == 'COMPLETED'}">Завершен</option>
           </select>
           <button type="submit">Обновить</button>
         </form>

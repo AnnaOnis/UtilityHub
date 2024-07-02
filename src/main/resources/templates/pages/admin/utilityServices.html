@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Услуги</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<th:block th:insert="~{/layouts/header.html::headerLayout()}"></th:block>
+<nav>
+  <ul th:class="nav-ul">
+    <li th:class="nav-li" style="float:right">
+      <a th:class="nav-a" th:href="@{/admin/dashboard}">Назад</a>
+    </li>
+  </ul>
+</nav>
+<main>
+
+  <div style="width: 100%; text-align: center;">
+    <h1>Услуги</h1>
+  </div>
+
+  <div>
+    <form th:object="${utilityService}" method="post"
+          th:action="@{${utilityService.getId() == null ? '/admin/utility_services' : '/admin/utility_services/' + utilityService.getId()}}" >
+      <label >Название:</label>
+      <input th:type="text" th:field="*{name}">
+      <label >Единицы измерения:</label>
+      <input th:type="text" th:field="*{measureUnit}">
+      <label >Тариф:</label>
+      <input th:type="number" step="0.01" th:field="*{tariff}">
+      <button type="submit" th:text="${utilityService.getId() == null ? 'Добавить' : 'Сохранить изменения'}"></button>
+    </form>
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th><a th:href="@{/admin/utility_services(sortField='id', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">ID</a></th>
+      <th><a th:href="@{/admin/utility_services(sortField='name', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'})}">Название</a></th>
+      <th>Единицы измерения</th>
+      <th>Тариф</th>
+      <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="utilityService : ${utilityServices}">
+      <td th:text="${utilityService.getId()}"></td>
+      <td th:text="${utilityService.getName()}"></td>
+      <td th:text="${utilityService.getMeasureUnit()}"></td>
+      <td th:text="${utilityService.getTariff()}"></td>
+      <td>
+        <form th:class="td-form"
+              th:action="@{/admin/utility_services/delete/{id}(id=${utilityService.id}, page=${page},
+                                        size=${size},
+                                        sortField=${sortField},
+                                        sortDir=${sortDir})}" method="post">
+          <button type="submit">Удалить</button>
+        </form>
+        <form th:class="td-form"
+              th:action="@{/admin/utility_services/{id}(id=${utilityService.id}, page=${page},
+                                        size=${size},
+                                        sortField=${sortField},
+                                        sortDir=${sortDir})}" method="get">
+          <button type="submit">Изменить</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top: 20px; ">
+        <span style="margin-right: 20px;" th:if="${page > 0}">
+            <a th:href="@{/admin/utility_services(page=${page - 1},
+                                        size=${size},
+                                        sortField=${sortField},
+                                        sortDir=${sortDir})}"><<</a>
+        </span>
+
+        <span style="margin-right: 20px;">[[${page + 1}]]</span>
+
+        <span th:if="${page < totalPages - 1}">
+            <a th:href="@{/admin/utility_services(page=${page + 1},
+                                        size=${size},
+                                        sortField=${sortField},
+                                        sortDir=${sortDir})}">>></a>
+        </span>
+  </div>
+</main>
+<th:block th:insert="~{/layouts/footer.html::footerLayout()}"></th:block>
+</body>
+</html>

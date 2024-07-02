@@ -1,13 +1,13 @@
 package com.example.utilityhub.controllers;
 
-import com.example.utilityhub.dao.NotificationService;
-import com.example.utilityhub.dao.PaymentService;
-import com.example.utilityhub.dao.RequestService;
-import com.example.utilityhub.dao.UserService;
-import com.example.utilityhub.models.Notification;
-import com.example.utilityhub.models.Payment;
-import com.example.utilityhub.models.Request;
-import com.example.utilityhub.models.User;
+import com.example.utilityhub.services.interfaces.NotificationService;
+import com.example.utilityhub.services.interfaces.PaymentService;
+import com.example.utilityhub.services.interfaces.RequestService;
+import com.example.utilityhub.services.interfaces.UserService;
+import com.example.utilityhub.models.entities.Notification;
+import com.example.utilityhub.models.entities.Payment;
+import com.example.utilityhub.models.entities.Request;
+import com.example.utilityhub.models.entities.User;
 import com.example.utilityhub.models.enums.PaymentStatus;
 import com.example.utilityhub.models.enums.RequestStatus;
 import com.example.utilityhub.models.enums.Role;
@@ -17,8 +17,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -156,7 +154,7 @@ public class AdminController {
             Request userRequest = optionalRequest.get();
             userRequest.setStatus(RequestStatus.valueOf(status));
             if(status.equals("IN_PROGRESS")){
-                userRequest.setDateOfProcessing(LocalDate.of(2024, 6, 29));
+                userRequest.setDateOfProcessing(LocalDateTime.now().toLocalDate());
             }else if(status.equals("COMPLETED")){
                 userRequest.setDateOfCompleted(LocalDateTime.now().toLocalDate());
             }
